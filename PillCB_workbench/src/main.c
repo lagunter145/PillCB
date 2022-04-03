@@ -171,8 +171,66 @@ void init_tim2(int n) {
     NVIC->ISER[0] = 1<<15;
 }
 
+
+void init_lcd_spi(void)
+{
+    RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
+    // sets pb8,11,14 as outputs
+    GPIOB->MODER &= ~(GPIO_MODER_MODER8);
+    GPIOB->MODER |= GPIO_MODER_MODER8_0;
+    GPIOB->MODER &= ~(GPIO_MODER_MODER11);
+    GPIOB->MODER |= GPIO_MODER_MODER11_0;
+    GPIOB->MODER &= ~(GPIO_MODER_MODER14);
+    GPIOB->MODER |= GPIO_MODER_MODER14_0;
+    //sets pb8,11,14 as high
+    GPIOB->ODR |= GPIO_ODR_8;
+    GPIOB->ODR |= GPIO_ODR_11;
+    GPIOB->ODR |= GPIO_ODR_14;
+    // PB3 and PB5 as AF0
+    GPIOB->MODER &= ~(GPIO_MODER_MODER3);
+    GPIOB->MODER |= GPIO_MODER_MODER3_1;
+    GPIOB->AFR[0] &= ~(GPIO_AFRL_AFR3);
+    GPIOB->MODER &= ~(GPIO_MODER_MODER5);
+    GPIOB->MODER |= GPIO_MODER_MODER5_1;
+    GPIOB->AFR[0] &= ~(GPIO_AFRL_AFR5);
+
+    RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
+    SPI1->CR1 &= ~(SPI_CR1_SPE);
+    SPI1->CR1 &= ~(SPI_CR1_BR); // sets br to divide by 2, the min
+    SPI1->CR2 &= ~(SPI_CR2_DS);
+    SPI1->CR2 |= SPI_CR2_DS_0 | SPI_CR2_DS_1 | SPI_CR2_DS_2;
+    SPI1->CR1 |= SPI_CR1_MSTR;
+    SPI1->CR2 |= SPI_CR1_SSI | SPI_CR1_SSM;
+    SPI1->CR1 |= SPI_CR1_SPE;
+}
+
+void setup_buttons(void)
+{
+    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
+    GPIOC->MODER &= ~0xffff;
+    GPIOC->MODER |= 0x55 << (4*2);
+    GPIOC->OTYPER &= ~0xff;
+    GPIOC->OTYPER |= 0xf0;
+    GPIOC->PUPDR &= ~0xff;
+    GPIOC->PUPDR |= 0x55;
+}
+
+void basic_drawing(void);
+void move_ball(void);
+
+
 int main(void)
 {
+#define display
+#if defined(display)
+    setup_buttons();
+    LCD_Setup();
+    basic_drawing();
+    move_ball();
+#endif
+
+//#define sound_player
+#if defined(sound_player)
     init_wavetable_hybrid2();
     init_dac();
     init_tim6();
@@ -186,5 +244,6 @@ int main(void)
         if (mp->nexttick == MAXTICKS)
             mp = midi_init(midifile);
     }
+#endif
     return 0;
 }

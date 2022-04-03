@@ -175,33 +175,19 @@ void init_tim2(int n) {
 void init_lcd_spi(void)
 {
     RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
-    // sets pb8,11,14 as outputs
-    GPIOB->MODER &= ~(GPIO_MODER_MODER8);
-    GPIOB->MODER |= GPIO_MODER_MODER8_0;
-    GPIOB->MODER &= ~(GPIO_MODER_MODER11);
-    GPIOB->MODER |= GPIO_MODER_MODER11_0;
-    GPIOB->MODER &= ~(GPIO_MODER_MODER14);
-    GPIOB->MODER |= GPIO_MODER_MODER14_0;
-    //sets pb8,11,14 as high
-    GPIOB->ODR |= GPIO_ODR_8;
-    GPIOB->ODR |= GPIO_ODR_11;
-    GPIOB->ODR |= GPIO_ODR_14;
-    // PB3 and PB5 as AF0
-    GPIOB->MODER &= ~(GPIO_MODER_MODER3);
-    GPIOB->MODER |= GPIO_MODER_MODER3_1;
-    GPIOB->AFR[0] &= ~(GPIO_AFRL_AFR3);
-    GPIOB->MODER &= ~(GPIO_MODER_MODER5);
-    GPIOB->MODER |= GPIO_MODER_MODER5_1;
-    GPIOB->AFR[0] &= ~(GPIO_AFRL_AFR5);
+    GPIOB->MODER &= ~0x30c30000;
+    GPIOB->MODER |= 0x10410880;
+    GPIOB->BSRR |= 0x00004900;
+    GPIOB->AFR[0] &= ~0x00f0f000;
 
     RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
-    SPI1->CR1 &= ~(SPI_CR1_SPE);
-    SPI1->CR1 &= ~(SPI_CR1_BR); // sets br to divide by 2, the min
-    SPI1->CR2 &= ~(SPI_CR2_DS);
-    SPI1->CR2 |= SPI_CR2_DS_0 | SPI_CR2_DS_1 | SPI_CR2_DS_2;
+    SPI1->CR1 &= ~SPI_CR1_SPE;
+    SPI1->CR1 &= ~SPI_CR1_BR;
     SPI1->CR1 |= SPI_CR1_MSTR;
-    SPI1->CR2 |= SPI_CR1_SSI | SPI_CR1_SSM;
+    SPI1->CR2 = SPI_CR2_DS_0 | SPI_CR2_DS_1 | SPI_CR2_DS_2;
+    SPI1->CR1 |= SPI_CR1_SSM | SPI_CR1_SSI;
     SPI1->CR1 |= SPI_CR1_SPE;
+
 }
 
 void setup_buttons(void)
@@ -213,6 +199,8 @@ void setup_buttons(void)
     GPIOC->OTYPER |= 0xf0;
     GPIOC->PUPDR &= ~0xff;
     GPIOC->PUPDR |= 0x55;
+
+
 }
 
 void basic_drawing(void);

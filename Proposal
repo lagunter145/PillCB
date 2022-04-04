@@ -1,0 +1,15 @@
+Briefly, what are you making and what are you making it out of?
+We are planning to create an interface for a pill dispense system. The user can choose what type of pill they want out of three options. They can then set the frequency for how often they want to take each pill. The display will show a clock in real time as well as up to three timers showing a countdown until the next dosage for each pill. When the time comes for a pill to be taken, a song will play with the display changing to show a message, “Time to take Pill _” with _ being the pill number. There will also be an animation of an anthropomorphic pill dancing. The user can push a button to turn off the song and return the display back to the clock and timers. We will be using an AC wall adaptor to synchronize the clock, a keyboard for the user to input the pill number, the frequency, and to reset. The TFT LCD will be used for the display. The song will be played using the TRRS Jack, (probably) LM324 op amp, and speaker.
+
+We are planning to create a pill calendar which will set notifications for when to take pills, reset notifications, display time and date, set alarms which will play a sound for notification, and display animations of pills. 
+
+Briefly, how will you demonstrate it?
+We will demonstrate our project by having a user input a frequency (something short for demonstration purposes) for how frequent they want the pills on the keypad. The TFT LCD Display will always show the current time, date, and an animation of the pill. It will also always say how much time is left until you have to take your next pill(s). [So at all times, there will be a real-time clock, and up to 3 different count-down timers].  When the time comes, an output analog signal will be played through speakers. The display will then clear and say something along the lines of “Time to take pill 1!” The user can then press a button to reset the display, which will bring it back to the screen with the clock, and countdowns. Pressing this button will also turn off the alarm. The user can specify more pills (up to 3) at any time. 
+
+Briefly, how will we define the criteria for a successful project?
+Our clock will run accurately and have an error of plus or minus one minute for eternity.
+User will be able to set up 3 different pills to take at various times throughout the day.
+Our display will show user the time and time until next dosage for each pill set up.
+Our display will also be user-friendly and aesthetically pleasing.
+Our display will show an animation and play a song when the user needs to take a pill and keep showing it until the user acknowledges they took the pill.
+Our animations and alarms will run smoothly

@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include "midi.h"
 #include "midiplay.h"
+#include "lcd.h"
 
 // The number of simultaneous voices to support.
 #define VOICES 15
@@ -209,7 +210,7 @@ void move_ball(void);
 
 int main(void)
 {
-#define display
+//#define display
 #if defined(display)
     setup_buttons();
     LCD_Setup();
@@ -217,7 +218,7 @@ int main(void)
     move_ball();
 #endif
 
-//#define sound_player
+#define sound_player
 #if defined(sound_player)
     init_wavetable_hybrid2();
     init_dac();

@@ -1,7 +1,7 @@
 (kicad_pcb (version 20211014) (generator pcbnew)
 
   (general
-    (thickness 0.57)
+    (thickness 1.6)
   )
 
   (paper "A4")
@@ -14,7 +14,11 @@
 
   (layers
     (0 "F.Cu" signal)
+    (1 "In1.Cu" signal "Ground.Cu")
+    (2 "In2.Cu" signal "Power.Cu")
     (31 "B.Cu" signal)
+    (32 "B.Adhes" user "B.Adhesive")
+    (33 "F.Adhes" user "F.Adhesive")
     (34 "B.Paste" user)
     (35 "F.Paste" user)
     (36 "B.SilkS" user "B.Silkscreen")
@@ -23,29 +27,18 @@
     (39 "F.Mask" user)
     (40 "Dwgs.User" user "User.Drawings")
     (41 "Cmts.User" user "User.Comments")
+    (42 "Eco1.User" user "User.Eco1")
+    (43 "Eco2.User" user "User.Eco2")
     (44 "Edge.Cuts" user)
     (45 "Margin" user)
     (46 "B.CrtYd" user "B.Courtyard")
     (47 "F.CrtYd" user "F.Courtyard")
+    (48 "B.Fab" user)
     (49 "F.Fab" user)
   )
 
   (setup
-    (stackup
-      (layer "F.SilkS" (type "Top Silk Screen"))
-      (layer "F.Paste" (type "Top Solder Paste"))
-      (layer "F.Mask" (type "Top Solder Mask") (thickness 0.01))
-      (layer "F.Cu" (type "copper") (thickness 0.035))
-      (layer "dielectric 1" (type "core") (thickness 0.48) (material "FR4") (epsilon_r 4.5) (loss_tangent 0.02))
-      (layer "B.Cu" (type "copper") (thickness 0.035))
-      (layer "B.Mask" (type "Bottom Solder Mask") (thickness 0.01))
-      (layer "B.Paste" (type "Bottom Solder Paste"))
-      (layer "B.SilkS" (type "Bottom Silk Screen"))
-      (copper_finish "None")
-      (dielectric_constraints no)
-    )
-    (pad_to_mask_clearance 0.0508)
-    (solder_mask_min_width 0.101)
+    (pad_to_mask_clearance 0.05)
     (grid_origin 99.07762 130.73476)
     (pcbplotparams
       (layerselection 0x00010fc_ffffffff)
@@ -539,22 +532,22 @@
 
   (footprint "Diode_SMD:D_SOD-323" (layer "F.Cu")
     (tedit 58641739) (tstamp 31fcfc36-fa4a-4b83-b63b-c5fe3b9458e1)
-    (at 134.63762 36.75476 90)
+    (at 147.33762 24.05476)
     (descr "SOD-323")
     (tags "SOD-323")
     (property "Sheetfile" "stm32f091.kicad_sch")
     (property "Sheetname" "")
     (path "/00000000-0000-0000-0000-00005edf967b")
     (attr smd)
-    (fp_text reference "D5" (at 0 -1.85 90) (layer "F.SilkS")
+    (fp_text reference "D5" (at 0 -1.85) (layer "F.SilkS")
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp cbef0113-ec6d-4328-a335-782ede5981be)
     )
-    (fp_text value "BAT60JFILM" (at 0.1 1.9 90) (layer "F.Fab")
+    (fp_text value "BAT60JFILM" (at 0.1 1.9) (layer "F.Fab")
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp a12aebc6-707d-4a7f-88ca-99ad7d7665c3)
     )
-    (fp_text user "${REFERENCE}" (at 0 -1.85 90) (layer "F.Fab")
+    (fp_text user "${REFERENCE}" (at 0 -1.85) (layer "F.Fab")
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 2149181d-34bd-4941-ac8f-71b0c32a87ed)
     )
@@ -575,9 +568,9 @@
     (fp_line (start 0.2 0) (end 0.45 0) (layer "F.Fab") (width 0.1) (tstamp 84e6513a-f679-4958-8593-6d8d08332438))
     (fp_line (start -0.3 -0.35) (end -0.3 0.35) (layer "F.Fab") (width 0.1) (tstamp b3711817-7cf2-4e16-aa76-66ac5ae8aea8))
     (fp_line (start 0.9 0.7) (end -0.9 0.7) (layer "F.Fab") (width 0.1) (tstamp b90c64ab-7995-40b2-842a-244ed02d5a3f))
-    (pad "1" smd rect (at -1.05 0 90) (size 0.6 0.45) (layers "F.Cu" "F.Paste" "F.Mask")
+    (pad "1" smd rect (at -1.05 0) (size 0.6 0.45) (layers "F.Cu" "F.Paste" "F.Mask")
       (net 12 "+3V0") (pinfunction "K") (pintype "passive") (tstamp b3feae97-8bdb-48b1-bcf0-8abce24c0f84))
-    (pad "2" smd rect (at 1.05 0 90) (size 0.6 0.45) (layers "F.Cu" "F.Paste" "F.Mask")
+    (pad "2" smd rect (at 1.05 0) (size 0.6 0.45) (layers "F.Cu" "F.Paste" "F.Mask")
       (net 46 "Net-(C10-Pad1)") (pinfunction "A") (pintype "passive") (tstamp 1461beb8-6ac5-4e8a-a8a8-2919cc1a5132))
     (model "${KICAD6_3DMODEL_DIR}/Diode_SMD.3dshapes/D_SOD-323.wrl"
       (offset (xyz 0 0 0))
@@ -769,7 +762,7 @@
 
   (footprint "Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal" (layer "F.Cu")
     (tedit 5AE50EF0) (tstamp 444d609f-8a53-4e19-adf1-fe1a27432d30)
-    (at 102.88762 32.88476 90)
+    (at 102.88762 31.61476 90)
     (descr "C, Axial series, Axial, Horizontal, pin pitch=7.5mm, , length*diameter=5.1*3.1mm^2, http://www.vishay.com/docs/45231/arseries.pdf")
     (tags "C Axial series Axial Horizontal pin pitch 7.5mm  length 5.1mm diameter 3.1mm")
     (property "Sheetfile" "stm32f091.kicad_sch")
@@ -1437,7 +1430,7 @@
 
   (footprint "Package_QFP:LQFP-64_10x10mm_P0.5mm" (layer "F.Cu")
     (tedit 5D9F72AF) (tstamp 786264e4-47c0-4bd6-8fc4-6353c4a4208a)
-    (at 129.55762 95.17476 45)
+    (at 135.90762 95.17476 45)
     (descr "LQFP, 64 Pin (https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py")
     (tags "LQFP QFP")
     (property "Sheetfile" "stm32f091.kicad_sch")
@@ -1881,7 +1874,7 @@
 
   (footprint "Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal" (layer "F.Cu")
     (tedit 5AE50EF0) (tstamp 7e7f9895-bc78-4294-8373-6a1b721b0f10)
-    (at 111.77762 32.88476 90)
+    (at 111.77762 31.61476 90)
     (descr "C, Axial series, Axial, Horizontal, pin pitch=7.5mm, , length*diameter=5.1*3.1mm^2, http://www.vishay.com/docs/45231/arseries.pdf")
     (tags "C Axial series Axial Horizontal pin pitch 7.5mm  length 5.1mm diameter 3.1mm")
     (property "Sheetfile" "stm32f091.kicad_sch")
@@ -2073,7 +2066,7 @@
 
   (footprint "Package_TO_SOT_SMD:SOT-223-3_TabPin2" (layer "F.Cu")
     (tedit 5A02FF57) (tstamp 89a5bc45-9f3b-48ae-96a8-bf73c7754bcd)
-    (at 121.93762 30.40476)
+    (at 121.93762 27.86476)
     (descr "module CMS SOT223 4 pins")
     (tags "CMS SOT")
     (property "Sheetfile" "stm32f091.kicad_sch")
@@ -2425,7 +2418,7 @@
 
   (footprint "Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal" (layer "F.Cu")
     (tedit 5AE50EF0) (tstamp a3de8129-b8da-4fe5-953f-70c870697e75)
-    (at 133.36762 32.88476 90)
+    (at 133.36762 31.61476 90)
     (descr "C, Axial series, Axial, Horizontal, pin pitch=7.5mm, , length*diameter=5.1*3.1mm^2, http://www.vishay.com/docs/45231/arseries.pdf")
     (tags "C Axial series Axial Horizontal pin pitch 7.5mm  length 5.1mm diameter 3.1mm")
     (property "Sheetfile" "stm32f091.kicad_sch")
@@ -3350,7 +3343,7 @@
 
   (footprint "Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal" (layer "F.Cu")
     (tedit 5AE50EF0) (tstamp f97d7fc6-44ab-44c1-8f1e-f6071e0434cf)
-    (at 142.25762 32.88476 90)
+    (at 142.25762 31.61476 90)
     (descr "C, Axial series, Axial, Horizontal, pin pitch=7.5mm, , length*diameter=5.1*3.1mm^2, http://www.vishay.com/docs/45231/arseries.pdf")
     (tags "C Axial series Axial Horizontal pin pitch 7.5mm  length 5.1mm diameter 3.1mm")
     (property "Sheetfile" "stm32f091.kicad_sch")
@@ -3443,10 +3436,5 @@
       (rotate (xyz 0 0 0))
     )
   )
-
-  (gr_line (start 90.18762 21.51476) (end 174.00762 21.51476) (layer "Edge.Cuts") (width 0.0254) (tstamp 1f3f5051-54ed-4a92-9366-9d3118d9bd42))
-  (gr_line (start 174.00762 21.51476) (end 174.00762 152.32476) (layer "Edge.Cuts") (width 0.0254) (tstamp 36f4b3dd-c869-423d-aa44-207ed9a8a2d3))
-  (gr_line (start 90.18762 152.32476) (end 90.18762 21.51476) (layer "Edge.Cuts") (width 0.0254) (tstamp 8b23853b-40df-4d7f-b4a2-e461e91fbd7e))
-  (gr_line (start 174.00762 152.32476) (end 90.18762 152.32476) (layer "Edge.Cuts") (width 0.0254) (tstamp bc58b7d1-3081-4b69-9ac8-68df5fb53c79))
 
 )

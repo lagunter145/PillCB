@@ -1,0 +1,35 @@
+Annotated PWR_FLAG as #FLG01.
+Annotated PWR_FLAG as #FLG02.
+Annotated PWR_FLAG as #FLG03.
+Annotated +3V0 as #PWR01.
+Annotated GND as #PWR02.
+Annotated +5V as #PWR03.
+Annotated GND as #PWR04.
+Annotated GND as #PWR05.
+Annotated +5V as #PWR06.
+Annotated GND as #PWR07.
+Annotated 0.1u as C19.
+Annotated 1uF as C20.
+Annotated D_Zener as D4.
+Annotated D as D5.
+Annotated D as D6.
+Annotated D as D7.
+Annotated D as D8.
+Annotated Conn_01x02_Female as J1.
+Annotated Conn_01x08_Female as J2.
+Annotated Conn_01x02_Female as J4.
+Annotated 2N3904 as Q1.
+Annotated 10K as R23.
+Annotated 100K as R24.
+Annotated ? as R25.
+Annotated 1K as R26.
+Annotated 1k as R27.
+Annotated Transformer_1P_1S as T1.
+Annotated LM324 (unit A) as U3A.
+Annotated LM324 (unit E) as U3E.
+Annotated LM386 as U4.
+Annotated LM324 (unit A) as U5A.
+Error: Duplicate items D1A
+
+Error: Duplicate items D2A
+

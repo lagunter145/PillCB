@@ -1,0 +1,120 @@
+Info: Reading netlist file 'C:\Users\laure\workspace\miniproject\PillCB\stm32f091-ref_Master_separate_power_supply\stm32f091.net'.
+
+Info: Using reference designators to match symbols and footprints.
+
+Info: Processing symbol 'RV2:local_models:potentiometer'.
+Info: Processing symbol 'RV1:local_models:potentiometer'.
+Info: Processing symbol 'U4:local_models:U4'.
+Info: Processing symbol 'U2:local_models:U2'.
+Info: Processing symbol 'FB1:Inductor_SMD:L_0805_2012Metric_Pad1.15x1.40mm_HandSolder'.
+Info: Processing symbol 'D4:Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal'.
+Info: Processing symbol 'D1:Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal'.
+Info: Processing symbol 'D3:Diode_THT:D_DO-201_P15.24mm_Horizontal'.
+Info: Processing symbol 'D5:Diode_SMD:D_SOD-323'.
+Info: Processing symbol 'D2:Diode_SMD:D_SOD-323'.
+Info: Processing symbol 'J1:Connector_IDC:IDC-Header_2x05_P2.54mm_Vertical'.
+Info: Processing symbol 'C20:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'C19:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'LS1:local_models:LS1'.
+Info: Processing symbol 'J2:local_models:J3'.
+Info: Processing symbol 'J3:local_models:J2'.
+Info: Processing symbol 'J4:local_models:J1'.
+Info: Processing symbol 'R21:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C18:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R20:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C17:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R14:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C16:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R19:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C15:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R18:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C14:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R17:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C13:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R16:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C12:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R15:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C11:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R13:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C10:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R12:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C9:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R11:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C7:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R10:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C6:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R9:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C21:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R8:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C5:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R7:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C4:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R6:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C3:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R4:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C2:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R3:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C1:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R5:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'SW1:Button_Switch_THT:SW_PUSH-12mm_Wuerth-430476085716'.
+Info: Processing symbol 'R2:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'C8:Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Info: Processing symbol 'R1:Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Info: Processing symbol 'U1:Package_TO_SOT_SMD:SOT-223-3_TabPin2'.
+Info: Processing symbol 'U3:Package_QFP:LQFP-64_10x10mm_P0.5mm'.
+Info: Processing symbol 'LD1:LED_THT:LED_D2.0mm_W4.8mm_H2.5mm_FlatTop'.
+Info: Processing symbol 'LD2:LED_THT:LED_D2.0mm_W4.8mm_H2.5mm_FlatTop'.
+Changed R19 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C19 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C4 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C3 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C21 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C2 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed R3 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C13 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C1 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed R21 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R20 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R14 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C18 footprint from 'Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed R18 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R17 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R16 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R15 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R13 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R12 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R11 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R10 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R8 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R7 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R6 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed R4 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C14 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed R5 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C12 footprint from 'Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed R1 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C11 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C17 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C10 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C20 footprint from 'Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C9 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C16 footprint from 'Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C7 footprint from 'Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed R9 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C8 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed R2 footprint from 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal' to 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'.
+Changed C6 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C15 footprint from 'Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Changed C5 footprint from 'Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal' to 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'.
+Warning: No net found for symbol U2 pin 6.
+Warning: No net found for symbol U2 pin 7.
+Warning: No net found for symbol U2 pin 8.
+Warning: No net found for symbol U2 pin 9.
+Warning: No net found for symbol U2 pin 10.
+Warning: No net found for symbol U2 pin 13.
+Warning: No net found for symbol U2 pin 14.
+Warning: No net found for symbol U2 pin 12.
+Warning: No net found for symbol U2 pin 5.
+
+
+Info: Total warnings: 0, errors: 0.

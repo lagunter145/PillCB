@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 38,
+    "active_layer": 44,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_nets": [],
@@ -62,11 +62,11 @@
       35,
       36
     ],
-    "visible_layers": "fffb1aa_7ffffff9",
+    "visible_layers": "002f3fc_80000001",
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "stm32f091_project_condensed.kicad_prl",
+    "filename": "stm32f091_project.kicad_prl",
     "version": 3
   },
   "project": {

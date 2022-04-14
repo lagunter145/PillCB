@@ -126,7 +126,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "stm32f091_project_condensed.kicad_pro",
+    "filename": "stm32f091_project_toobig.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -158,7 +158,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "stm32f091.net",
+      "netlist": "",
       "specctra_dsn": "",
       "step": "",
       "vrml": ""

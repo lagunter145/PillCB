@@ -1,4 +1,4 @@
-20170825519149155
+20172475469492591
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -85707,3 +85707,10 @@ U4
 0
 8
 8
+local_models
+potentiometer
+Potentiometer, vertical, Vishay 248GJ-249GJ Single, http://www.vishay.com/docs/57054/248249.pdf
+Potentiometer vertical Vishay 248GJ-249GJ Single
+0
+3
+3

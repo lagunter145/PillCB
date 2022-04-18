@@ -1,7 +1,7 @@
 (export (version "E")
   (design
-    (source "C:\\Users\\laure\\workspace\\miniproject\\PillCB\\stm32f091-ref_Master\\stm32f091.kicad_sch")
-    (date "4/16/2022 6:13:08 PM")
+    (source "C:\\Users\\Lauren\\LocalPurdueDrive\\PillCB\\stm32f091-ref_Master\\stm32f091.kicad_sch")
+    (date "4/18/2022 11:22:52 AM")
     (tool "Eeschema (6.0.4)")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block
@@ -582,7 +582,7 @@
       (tstamps "00000000-0000-0000-0000-00005ee02f8a"))
     (comp (ref "U4")
       (value "LM386")
-      (footprint "local_models:U4")
+      (footprint "Package_DIP:DIP-8_W7.62mm")
       (datasheet "http://www.ti.com/lit/ds/symlink/lm386.pdf")
       (libsource (lib "Amplifier_Audio") (part "LM386") (description "Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8"))
       (property (name "Sheetname") (value ""))
@@ -590,19 +590,6 @@
       (sheetpath (names "/") (tstamps "/"))
       (tstamps "7f7682d1-a5f5-4493-8e01-c35882b526c9")))
   (libparts
-    (libpart (lib "") (part "10uF")
-      (description "Unpolarized capacitor")
-      (docs "~")
-      (footprints
-        (fp "C_*"))
-      (fields
-        (field (name "Reference") "C?")
-        (field (name "Value") "10uF")
-        (field (name "Footprint") "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
-        (field (name "Datasheet") "~"))
-      (pins
-        (pin (num "1") (name "") (type "passive"))
-        (pin (num "2") (name "") (type "passive"))))
     (libpart (lib "") (part "1N5819_1")
       (description "40V 1A Schottky Barrier Rectifier Diode, DO-41")
       (docs "http://www.vishay.com/docs/88525/1n5817.pdf")
@@ -624,6 +611,19 @@
         (field (name "Reference") "C11")
         (field (name "Value") "C_1")
         (field (name "Footprint") "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder"))
+      (pins
+        (pin (num "1") (name "") (type "passive"))
+        (pin (num "2") (name "") (type "passive"))))
+    (libpart (lib "") (part "C_2")
+      (description "Unpolarized capacitor")
+      (docs "~")
+      (footprints
+        (fp "C_*"))
+      (fields
+        (field (name "Reference") "C?")
+        (field (name "Value") "10uF")
+        (field (name "Footprint") "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+        (field (name "Datasheet") "~"))
       (pins
         (pin (num "1") (name "") (type "passive"))
         (pin (num "2") (name "") (type "passive"))))
@@ -1023,7 +1023,7 @@
     (library (logical "pspice")
       (uri "C:\\Program Files\\KiCad\\6.0\\share\\kicad\\symbols\\/pspice.kicad_sym"))
     (library (logical "stm32f091-rescue")
-      (uri "C:\\Users\\laure\\workspace\\miniproject\\PillCB\\stm32f091-ref_Master/stm32f091-rescue.lib")))
+      (uri "C:\\Users\\Lauren\\LocalPurdueDrive\\PillCB\\stm32f091-ref_Master/stm32f091-rescue.lib")))
   (nets
     (net (code "1") (name "/BOOT0")
       (node (ref "R12") (pin "1") (pintype "passive"))

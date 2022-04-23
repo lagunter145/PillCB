@@ -76,23 +76,68 @@ void init_lcd_spi(void)
 
 void enable_ports(void)
 {
+    // KEYPAD PORTS
     RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
 
     // port c output pins 7 -4
     // port c input pins 3 - 0
     GPIOC->MODER &= ~(0xffff);
     GPIOC->MODER |= 0x55 << (4*2);
-
     // port c open drain pins 7 - 4
     GPIOC->OTYPER &= ~(0xff);
     GPIOC->OTYPER |= (0xf0);
-
     // port c pull high pins 3 - 0
     GPIOC->PUPDR &= ~(0xff);
     GPIOC->PUPDR |= (0x55);
-}
 
-//void basic_drawing(void);
+    // CLOCK PORTS
+    RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
+    GPIOB->MODER &= ~0x30;
+    GPIOB->MODER |= 0x0;
+    GPIOB->PUPDR &= ~0x30;
+    GPIOB->PUPDR |= 0x20;
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+    SYSCFG->EXTICR[0] |= SYSCFG_EXTICR1_EXTI2_PB;
+    EXTI->RTSR |= EXTI_RTSR_TR2;
+    EXTI->IMR &= ~0xffffffff;
+    EXTI->IMR |= EXTI_IMR_MR2;
+    NVIC->ISER[0] = (1<<6);
+}
+void general_menu(void);
+int counter = 0;
+
+//===========================================================================
+// CLOCK STUFF <3
+//===========================================================================
+void EXTI2_3_IRQHandler(void){
+
+    EXTI->PR |= EXTI_PR_PR2;
+    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
+    GPIOC->MODER &= ~0x30000;
+    GPIOC->MODER |= 0x10000;
+    //toggling PC8 to make sure RTSR is getting triggered
+    if(GPIOC->ODR & 1<<8) {
+        GPIOC->ODR &= ~0x0100;
+    }
+    else {
+        GPIOC->ODR |= 0x0100;
+    }
+    counter++;
+    calc_clock(counter);
+    timer_pill1(counter);
+    //pill2(counter);
+    //pill3(counter);
+    if(counter == 60) {
+        counter = 0;
+    }
+}
+volatile int county1 = 230;
+volatile int hr1 = 0;
+volatile int min1 = 0;
+volatile int sec1 = 0;
+//===========================================================================
+// MAIN FUNCTION <3
+//===========================================================================
 int main(void)
 {
     // TFT DISPLAY
@@ -105,7 +150,27 @@ int main(void)
     // KEYPAD
     // setup keyboard
     init_tim7();
-    home_screen();
+    //general_menu();
+    /*
+    for(;;) {
+    int c = calc_clock(counter);
+    print_clock(c);
+    }
+    */
+    if(county1 != 0) {
+
+         hr1 = county1 / 10000;
+
+         min1 = (county1 / 100) % 100;
+
+         sec1 = county1 % 100;
+     }
+    for(;;) {
+        if (county1 != 0) {
+            int c1 = timer_pill1(counter);
+            print_clock(c1);
+        }
+    }
 }
 
 

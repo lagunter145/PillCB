@@ -113,6 +113,27 @@ void general_menu(void) {
     }
 }
 
+extern const Picture nj_la_small, nj_lb_small, nj_lc_small, nj_ld_small, nj_le_small;
+
+void animation(int pill) {
+    char* saying = "";
+    if (pill == -1) {
+        saying = "Dance Dance";
+    }
+    else {
+        strcat(saying, strcat(strcat("Time for Pill ", pill), "!"));
+    }
+    int counter = 0;
+    Picture* nateJacobs = {nj_la_small, nj_lb_small, nj_lc_small, nj_ld_small, nj_le_small};
+    while (get_keypress() != NULL) {
+        LCD_Clear(BLACK);
+        LCD_DrawPicture(0,0,&nateJacobs[counter]);
+        write_to_display(saying, 70, 150);
+        nano_wait(1000000000);
+        counter = (counter + 1) % 5;
+    }
+}
+
 int timer_pill1(int counter, int done){
     //calculate display values for Pill 1
         if (counter == 60){

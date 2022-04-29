@@ -412,7 +412,7 @@ void EXTI2_3_IRQHandler(void){
         }
     }
     else {
-        if(counter == 30) {
+        if(counter == 4) {
             counter = 0;
         }
     }
@@ -428,6 +428,7 @@ void EXTI2_3_IRQHandler(void){
 //extern int qout;
 //extern char queue[2];
 volatile int noprint = 0;
+extern int seconds;
 
 void reset_counter() {
     counter = 0;
@@ -440,6 +441,13 @@ void home(int reset1, int reset2, int reset3) {
         RCC->APB1ENR |= 1<<0;
         TIM2->CR1 &= ~TIM_CR1_CEN;
         turnoffsound = 0;
+
+        voice->in_use = 0;
+        voice->note = 0;
+        voice->chan = 0;
+        voice->volume = 0;
+        voice->step = 0;
+        voice->offset = 0;
 
     }
     if(county1 != 0 && reset1 == 1) {

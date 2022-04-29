@@ -15,10 +15,10 @@ struct Pill{
 };
 
 
-struct Pill pill1 = { .pill_number =1, .secs1 = 5, .mins1 =3, .hrs1 =1, .secs2 = 6, .mins2 =4, .hrs2 =2};
-struct Pill pill2 = { .pill_number =2, .secs1 = 5, .mins1 =3, .hrs1 =1, .secs2 = 6, .mins2 =4, .hrs2 =2};
-struct Pill pill3 = { .pill_number =3, .secs1 = 5, .mins1 =3, .hrs1 =1, .secs2 = 6, .mins2 =4, .hrs2 =2};
-struct Pill clock = { .pill_number =0, .secs1 = 5, .mins1 =3, .hrs1 =1, .secs2 = 6, .mins2 =4, .hrs2 =2};
+struct Pill pill1 = { .pill_number =1, .secs1 = 0, .mins1 =0, .hrs1 =0, .secs2 = 0, .mins2 =0, .hrs2 =0};
+struct Pill pill2 = { .pill_number =2, .secs1 = 0, .mins1 =0, .hrs1 =0, .secs2 = 0, .mins2 =0, .hrs2 =0};
+struct Pill pill3 = { .pill_number =3, .secs1 = 0, .mins1 =0, .hrs1 =0, .secs2 = 0, .mins2 =0, .hrs2 =0};
+struct Pill clock = { .pill_number =0, .secs1 = 0, .mins1 =0, .hrs1 =0, .secs2 = 0, .mins2 =0, .hrs2 =0};
 
 // time is given as 000000 - split into hrs, mins, secs
 int time;
@@ -40,7 +40,7 @@ volatile int countNJ = 0;
 volatile int alarmtimecounter;
 volatile int screenType = 0; // 0 - home, 1 - menu, 2 - pill menu, 3 - set time, 4 - animation, 5 - pill edit time
 // clock vars
-int seconds = 0;
+volatile int seconds = 0;
 int minutes = 0;
 int hours = 0;
 int pill1done = 0;
@@ -118,38 +118,40 @@ void general_menu(void) {
     LCD_DrawString(20,230, WHITE, WHITE, "* - Back to Home Screen", 16, 1);
     char key_press = get_keypress();
     // A - pill menu
-    if(key_press == '#') {
-        pill_menu();
-    }
-    // B - set time
-    if(key_press == 'B') {
-        set_time();
-    }
-    // C - high speed
-    if(key_press == 'C') {
-        // high speed function
-
-        if (fastkeyhit == 0){
-            fastkeyhit = 1;
+    do {
+        if(key_press == '#') {
+            pill_menu();
         }
-        else {
-            fastkeyhit = 0;
+        // B - set time
+        else if(key_press == 'B') {
+            set_time();
         }
-        noprint = 0;
-        reset_counter();
-        home(pill1timereset,pill2timereset,pill3timereset);
-    }
-    // D - reset time
-    if(key_press == 'D') {
+        // C - high speed
+        else if(key_press == 'C') {
+            // high speed function
 
-    }
-    // * back to always_on
-    if(key_press == '*') {
-        LCD_Clear(CYAN);
-        noprint = 0;
-        //doweprint = 1;
-        home(pill1timereset, pill2timereset, pill3timereset);
-    }
+            if (fastkeyhit == 0){
+                fastkeyhit = 1;
+            }
+            else {
+                fastkeyhit = 0;
+            }
+            noprint = 0;
+            reset_counter();
+            home(pill1timereset,pill2timereset,pill3timereset);
+        }
+        // D - reset time
+        if(key_press == 'D') {
+
+        }
+        // * back to always_on
+        if(key_press == '*') {
+            LCD_Clear(BLACK);
+            noprint = 0;
+            //doweprint = 1;
+            home(pill1timereset, pill2timereset, pill3timereset);
+        }
+    } while ((key_press != 'A') || (key_press != 'B') || (key_press != 'C') || (key_press != '#') || (key_press != '*'));
 }
 
 void animation(int pill) {
@@ -159,7 +161,7 @@ void animation(int pill) {
     if (pill == -1) {
         saying = "Dance Dance";
     }
-    if(pill == 1) {
+    else if(pill == 1) {
         saying = "Take Pill 1!";
     }
     else if(pill == 2) {
@@ -276,12 +278,12 @@ int timer_pill1(int counter, int done){
     }
     else if (fastkeyhit != 0) { //I guess this is one way?
 
-    if (counter == 30){
+    if (counter == 4){
         sec1--;
         //counter = 0;
     }
     if (sec1 == -1){
-        min1--;
+        min1++;
         sec1 = 59;
     }
     if (min1 == -1){
@@ -372,12 +374,12 @@ int timer_pill2(int counter, int done){
          }
     }
     else if (fastkeyhit != 0) { //I guess this is one way?
-    if (counter == 30){
+    if (counter == 4){
         sec2--;
         //counter = 0;
     }
     if (sec2 == -1){
-        min2--;
+        min2++;
         sec2 = 59;
     }
     if (min2 == -1){
@@ -475,12 +477,12 @@ int timer_pill3(int counter, int done){
          }
     }
          else if (fastkeyhit != 0) { //I guess this is one way?
-         if (counter == 30){
+         if (counter == 4){
              sec3--;
              //counter = 0;
          }
          if (sec3 == -1){
-             min3--;
+             min3++;
              sec3 = 59;
          }
          if (min3 == -1){
@@ -642,23 +644,23 @@ void print_clock(int time, int number) {
     // this is to prevent overwriting
     // if we have time figure out how to black out individual digits
     if(number == 1) {
-        LCD_DrawFillRectangle(140, 100, 210, 120, BLACK);
+        //LCD_DrawFillRectangle(140, 100, 210, 120, BLACK);
         write_to_display("Pill 1:", 100, 50);
         write_to_display(s1, 100, 140);
     }
     else if(number == 2) {
-        LCD_DrawFillRectangle(140, 130, 210, 150, BLACK);
+        //LCD_DrawFillRectangle(140, 130, 210, 150, BLACK);
         write_to_display("Pill 2:", 130, 50);
         write_to_display(s1, 130, 140);
     }
     else if(number == 3) {
-        LCD_DrawFillRectangle(140, 160, 210, 180, BLACK);
+        //LCD_DrawFillRectangle(140, 160, 210, 180, BLACK);
         write_to_display("Pill 3:", 160, 50);
         write_to_display(s1, 160, 140);
     }
     // if not 1 2 or 3 must be the clock yuhhhh
     else {
-        LCD_DrawFillRectangle(140, 70, 210, 90, BLACK);
+        //LCD_DrawFillRectangle(140, 70, 210, 90, BLACK);
         write_to_display("Clock:", 70, 50);
         write_to_display(s1, 70, 140);
     }
@@ -666,7 +668,7 @@ void print_clock(int time, int number) {
     //LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
 }
 void write_to_display(char* s1, int height, int width) {
-    LCD_DrawString(width, height, WHITE, WHITE, s1, 16, 1);
+    LCD_DrawString(width, height, WHITE, BLACK, s1, 16, 0);
 }
 
 void home_screen(void) {
@@ -702,13 +704,13 @@ void pill_menu(void) {
 
     char key_press = get_keypress();
     if(key_press == '1') {
-        add_edit_pill(pill1);
+        add_edit_pill1();
     }
     else if(key_press == '2') {
-        add_edit_pill(pill2);
+        add_edit_pill2();
     }
     else if(key_press == '3') {
-        add_edit_pill(pill3);
+        add_edit_pill3();
     }
     else if(key_press == '*') {
         general_menu();
@@ -719,6 +721,8 @@ int get_time(void) {
     int check3 = 0;
 
     do {
+        drawTimeInput(time / 10);
+
         char key_press = get_keypress();
         if(key_press == '1') {
             time += 1;
@@ -769,7 +773,7 @@ int get_time(void) {
         if((key_press == 'A') || (key_press == 'C') || (key_press == 'D') || (key_press == '#'))
         {
             LCD_DrawFillRectangle(80, 100, 180, 120, BLACK);
-            LCD_DrawString(90,100, WHITE, WHITE, "Try again :)", 16, 1);
+            LCD_DrawString(90,100, WHITE, BLACK, "Try again :)", 16, 0);
             time = get_time();
             check3 = 1;
         }
@@ -777,7 +781,9 @@ int get_time(void) {
     }while (check3 != 1);
     return time;
 }
-void add_edit_pill(struct Pill p) {
+
+/*
+void add_edit_pill1() {
     // shows a pills curr set time (00 00 00 if not added)
     // A - next in time seq
     // B - back in time seq
@@ -792,12 +798,131 @@ void add_edit_pill(struct Pill p) {
     char s5[10];
     char s6[10];
 
-    sprintf(s1, "%d", p.hrs1);
-    sprintf(s2, "%d:", p.hrs2);
-    sprintf(s3, "%d", p.mins1);
-    sprintf(s4, "%d:", p.mins2);
-    sprintf(s5, "%d", p.secs1);
-    sprintf(s6, "%d", p.secs2);
+    sprintf(s1, "%d", pill1.hrs1);
+    sprintf(s2, "%d:", pill1.hrs2);
+    sprintf(s3, "%d", pill1.mins1);
+    sprintf(s4, "%d:", pill1.mins2);
+    sprintf(s5, "%d", pill1.secs1);
+    sprintf(s6, "%d", pill1.secs2);
+    strcat(s1, s2);
+    strcat(s1, s3);
+    strcat(s1, s4);
+    strcat(s1, s5);
+    strcat(s1, s6);
+    LCD_DrawString(90,100, WHITE, BLACK, s1, 16, 0);
+
+    LCD_DrawString(20,190, WHITE, BLACK, "# - Enter New Pill Reminder", 16, 0);
+    //LCD_DrawString(20, 200, WHITE, WHITE, "Enter in format Hours + Minutes + Seconds", 16, 1);
+   // LCD_DrawString(20, 210, WHITE, WHITE, "With 0's as Necessary", 16, 1);
+    LCD_DrawString(50, 210, WHITE, BLACK, "i.e.; enter 5:30:00 ", 16, 0);
+    LCD_DrawString(100, 230, WHITE, BLACK, "as 053000", 16, 0);
+    LCD_DrawString(20, 250, WHITE, BLACK, "B - Stop Entering Digits", 16, 0);
+    LCD_DrawString(20,280, WHITE, BLACK, "* - Back to Pill Menu", 16, 0);
+
+    char key_press;
+    do {
+        key_press = get_keypress();
+        int correctTime = 0;
+        if(key_press == '#') {
+            int newtime = get_time();
+                county1 = newtime;
+                pill1timereset = 1;
+                userinputpill1 = 1;
+            pill1.hrs1 = newtime / 1000000;
+            pill1.hrs2 = newtime / 100000 % 10;
+            pill1.mins1 = newtime / 10000 % 10;
+            pill1.mins2 = newtime / 1000 % 10;
+            pill1.secs1 = newtime / 100 % 10;
+            pill1.secs2 = newtime / 10 % 10;
+            char* errorMsg = "";
+            if ((((pill1.mins1 * 10) + pill1.mins2) < 0) || (((pill1.mins1 * 10) + pill1.mins2) > 60))
+            {
+                strcat(errorMsg, "Invalid minutes ");
+            }
+            else if ((((pill1.secs1 * 10) + pill1.secs2) < 0) || (((pill1.secs1 * 10) + pill1.secs2) > 60))
+            {
+                strcat(errorMsg, "Invalid seconds");
+            }
+            else
+            {
+                correctTime = 1;
+            }
+            if (correctTime == 0)
+            {
+                pill1.hrs1 = 0;
+                pill1.hrs2 = 0;
+                pill1.mins1 = 0;
+                pill1.mins2 = 0;
+                pill1.secs1 = 0;
+                pill1.secs2 = 0;
+                LCD_Clear(BLACK);
+                LCD_DrawRectangle(10, 10, 260, 320, WHITE);
+                LCD_DrawString(20,200, WHITE, BLACK, errorMsg, 16, 0);
+                LCD_DrawString(20,250, WHITE, BLACK, "# - Try again", 16, 0);
+                LCD_DrawString(20,280, WHITE, BLACK, "* - Back to Pill Menu", 16, 0);
+                key_press = get_keypress();
+                if(key_press == '#')
+                    add_edit_pill1();
+            }
+            else
+            {
+                char s1[10];
+                char s2[10];
+                char s3[10];
+                char s4[10];
+                char s5[10];
+                char s6[10];
+                sprintf(s1, "%d", pill1.hrs1);
+                sprintf(s2, "%d:", pill1.hrs2);
+                sprintf(s3, "%d", pill1.mins1);
+                sprintf(s4, "%d:", pill1.mins2);
+                sprintf(s5, "%d", pill1.secs1);
+                sprintf(s6, "%d", pill1.secs2);
+
+                strcat(s1, s2);
+                strcat(s1, s3);
+                strcat(s1, s4);
+                strcat(s1, s5);
+                strcat(s1, s6);
+
+                LCD_DrawFillRectangle(80, 100, 180, 120, BLACK);
+                LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+                key_press = get_keypress();
+            }
+            if(key_press == '*') {
+                pill_menu();
+            }
+            else if(key_press == '#') {
+                add_edit_pill1();
+            }
+        }
+        else if(key_press == '*') {
+            pill_menu();
+        }
+    } while (key_press != '*');
+}*/
+
+void add_edit_pill1() {
+    // shows a pills curr set time (00 00 00 if not added)
+    // A - next in time seq
+    // B - back in time seq
+    // * - back to pill_menu
+    LCD_Clear(BLACK);
+    screenType = 5;
+
+    char s1[10];
+    char s2[10];
+    char s3[10];
+    char s4[10];
+    char s5[10];
+    char s6[10];
+
+    sprintf(s1, "%d", pill1.hrs1);
+    sprintf(s2, "%d:", pill1.hrs2);
+    sprintf(s3, "%d", pill1.mins1);
+    sprintf(s4, "%d:", pill1.mins2);
+    sprintf(s5, "%d", pill1.secs1);
+    sprintf(s6, "%d", pill1.secs2);
     strcat(s1, s2);
     strcat(s1, s3);
     strcat(s1, s4);
@@ -819,33 +944,23 @@ void add_edit_pill(struct Pill p) {
         int correctTime = 0;
         if(key_press == '#') {
             int newtime = get_time();
-            if(p.pill_number == 1){
-                county1 = newtime/10;
-                pill1timereset = 1;
-                userinputpill1 = 1;
-            }
-            else if(p.pill_number == 2) {
-                county2 = newtime/10;
-                pill2timereset = 1;
-                userinputpill2 = 1;
-            }
-            else if(p.pill_number == 3) {
-                county3 = newtime/10;
-                pill3timereset = 1;
-                userinputpill3 = 1;
-            }
-            p.hrs1 = newtime / 1000000;
-            p.hrs2 = newtime / 100000 % 10;
-            p.mins1 = newtime / 10000 % 10;
-            p.mins2 = newtime / 1000 % 10;
-            p.secs1 = newtime / 100 % 10;
-            p.secs2 = newtime / 10 % 10;
+            if(newtime <= 590)
+                newtime  /= 10;
+            county1 = newtime;
+            pill1timereset = 1;
+            userinputpill1 = 1;
+            pill1.hrs1 = newtime / 100000;
+            pill1.hrs2 = newtime / 10000 % 10;
+            pill1.mins1 = newtime / 1000 % 10;
+            pill1.mins2 = newtime / 100 % 10;
+            pill1.secs1 = newtime / 10 % 10;
+            pill1.secs2 = newtime / 1 % 10;
             char* errorMsg = "";
-            if ((((p.mins1 * 10) + p.mins2) < 0) || (((p.mins1 * 10) + p.mins2) > 60))
+            if ((((pill1.mins1 * 10) + pill1.mins2) < 0) || (((pill1.mins1 * 10) + pill1.mins2) > 60))
             {
                 strcat(errorMsg, "Invalid minutes ");
             }
-            else if ((((p.secs1 * 10) + p.secs2) < 0) || (((p.secs1 * 10) + p.secs2) > 60))
+            else if ((((pill1.secs1 * 10) + pill1.secs2) < 0) || (((pill1.secs1 * 10) + pill1.secs2) > 60))
             {
                 strcat(errorMsg, "Invalid seconds");
             }
@@ -855,12 +970,12 @@ void add_edit_pill(struct Pill p) {
             }
             if (correctTime == 0)
             {
-                p.hrs1 = 0;
-                p.hrs2 = 0;
-                p.mins1 = 0;
-                p.mins2 = 0;
-                p.secs1 = 0;
-                p.secs2 = 0;
+                pill1.hrs1 = 0;
+                pill1.hrs2 = 0;
+                pill1.mins1 = 0;
+                pill1.mins2 = 0;
+                pill1.secs1 = 0;
+                pill1.secs2 = 0;
                 LCD_Clear(BLACK);
                 LCD_DrawRectangle(10, 10, 260, 320, WHITE);
                 LCD_DrawString(20,200, WHITE, WHITE, errorMsg, 16, 1);
@@ -868,7 +983,7 @@ void add_edit_pill(struct Pill p) {
                 LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
                 key_press = get_keypress();
                 if(key_press == '#')
-                    add_edit_pill(p);
+                    add_edit_pill1();
             }
             else
             {
@@ -878,25 +993,30 @@ void add_edit_pill(struct Pill p) {
                 char s4[10];
                 char s5[10];
                 char s6[10];
-                sprintf(s1, "%d", p.hrs1);
-                sprintf(s2, "%d:", p.hrs2);
-                sprintf(s3, "%d", p.mins1);
-                sprintf(s4, "%d:", p.mins2);
-                sprintf(s5, "%d", p.secs1);
-                sprintf(s6, "%d", p.secs2);
+                sprintf(s1, "%d", pill1.hrs1);
+                sprintf(s2, "%d:", pill1.hrs2);
+                sprintf(s3, "%d", pill1.mins1);
+                sprintf(s4, "%d:", pill1.mins2);
+                sprintf(s5, "%d", pill1.secs1);
+                sprintf(s6, "%d", pill1.secs2);
 
                 strcat(s1, s2);
                 strcat(s1, s3);
                 strcat(s1, s4);
                 strcat(s1, s5);
                 strcat(s1, s6);
-
+                hr1 =  pill1.hrs1*10 +  pill1.hrs2;
+                min1 = pill1.mins1*10 + pill1.mins2;
+                sec1 = pill1.secs1*10 + pill1.secs2;
                 LCD_DrawFillRectangle(80, 100, 180, 120, BLACK);
                 LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
                 key_press = get_keypress();
             }
             if(key_press == '*') {
                 pill_menu();
+            }
+            else if(key_press == '#') {
+                add_edit_pill1();
             }
         }
         else if(key_press == '*') {
@@ -905,6 +1025,367 @@ void add_edit_pill(struct Pill p) {
     } while (key_press != '*');
 
 }
+void add_edit_pill2() {
+    // shows a pills curr set time (00 00 00 if not added)
+    // A - next in time seq
+    // B - back in time seq
+    // * - back to pill_menu
+    LCD_Clear(BLACK);
+    screenType = 5;
+
+    char s1[10];
+    char s2[10];
+    char s3[10];
+    char s4[10];
+    char s5[10];
+    char s6[10];
+
+    sprintf(s1, "%d", pill2.hrs1);
+    sprintf(s2, "%d:", pill2.hrs2);
+    sprintf(s3, "%d", pill2.mins1);
+    sprintf(s4, "%d:", pill2.mins2);
+    sprintf(s5, "%d", pill2.secs1);
+    sprintf(s6, "%d", pill2.secs2);
+    strcat(s1, s2);
+    strcat(s1, s3);
+    strcat(s1, s4);
+    strcat(s1, s5);
+    strcat(s1, s6);
+    LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+
+    LCD_DrawString(20,190, WHITE, WHITE, "# - Enter New Pill Reminder", 16, 1);
+    //LCD_DrawString(20, 200, WHITE, WHITE, "Enter in format Hours + Minutes + Seconds", 16, 1);
+   // LCD_DrawString(20, 210, WHITE, WHITE, "With 0's as Necessary", 16, 1);
+    LCD_DrawString(50, 210, WHITE, WHITE, "i.e.; enter 5:30:00 ", 16, 1);
+    LCD_DrawString(100, 230, WHITE, WHITE, "as 053000", 16, 1);
+    LCD_DrawString(20, 250, WHITE, WHITE, "B - Stop Entering Digits", 16, 1);
+    LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+
+    char key_press;
+    do {
+        key_press = get_keypress();
+        int correctTime = 0;
+        if(key_press == '#') {
+            int newtime = get_time();
+            if(newtime <= 590)
+                newtime  /= 10;
+            county2 = newtime;
+            pill2timereset = 1;
+            userinputpill2 = 1;
+
+            pill2.hrs1 = newtime / 100000;
+            pill2.hrs2 = newtime / 10000 % 10;
+            pill2.mins1 = newtime / 1000 % 10;
+            pill2.mins2 = newtime / 100 % 10;
+            pill2.secs1 = newtime / 10 % 10;
+            pill2.secs2 = newtime / 1 % 10;
+            char* errorMsg = "";
+            if ((((pill2.mins1 * 10) + pill2.mins2) < 0) || (((pill2.mins1 * 10) + pill2.mins2) > 60))
+            {
+                strcat(errorMsg, "Invalid minutes ");
+            }
+            else if ((((pill2.secs1 * 10) + pill2.secs2) < 0) || (((pill2.secs1 * 10) + pill2.secs2) > 60))
+            {
+                strcat(errorMsg, "Invalid seconds");
+            }
+            else
+            {
+                correctTime = 1;
+            }
+            if (correctTime == 0)
+            {
+                pill2.hrs1 = 0;
+                pill2.hrs2 = 0;
+                pill2.mins1 = 0;
+                pill2.mins2 = 0;
+                pill2.secs1 = 0;
+                pill2.secs2 = 0;
+                LCD_Clear(BLACK);
+                LCD_DrawRectangle(10, 10, 260, 320, WHITE);
+                LCD_DrawString(20,200, WHITE, WHITE, errorMsg, 16, 1);
+                LCD_DrawString(20,250, WHITE, WHITE, "# - Try again", 16, 1);
+                LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+                key_press = get_keypress();
+                if(key_press == '#')
+                    add_edit_pill2();
+            }
+            else
+            {
+                char s1[10];
+                char s2[10];
+                char s3[10];
+                char s4[10];
+                char s5[10];
+                char s6[10];
+                sprintf(s1, "%d", pill2.hrs1);
+                sprintf(s2, "%d:", pill2.hrs2);
+                sprintf(s3, "%d", pill2.mins1);
+                sprintf(s4, "%d:", pill2.mins2);
+                sprintf(s5, "%d", pill2.secs1);
+                sprintf(s6, "%d", pill2.secs2);
+
+                strcat(s1, s2);
+                strcat(s1, s3);
+                strcat(s1, s4);
+                strcat(s1, s5);
+                strcat(s1, s6);
+                hr2 = pill2.hrs1*10 + pill2.hrs2;
+                min2 = pill2.mins1*10 + pill2.mins2;
+                sec2 = pill2.secs1*10 + pill2.secs2;
+                LCD_DrawFillRectangle(80, 100, 180, 120, BLACK);
+                LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+                key_press = get_keypress();
+            }
+            if(key_press == '*') {
+                pill_menu();
+            }
+            else if(key_press == '#') {
+                add_edit_pill2();
+            }
+        }
+        else if(key_press == '*') {
+            pill_menu();
+        }
+    } while (key_press != '*');
+
+}
+
+void add_edit_pill3() {
+    // shows a pills curr set time (00 00 00 if not added)
+    // A - next in time seq
+    // B - back in time seq
+    // * - back to pill_menu
+    LCD_Clear(BLACK);
+    screenType = 5;
+
+    char s1[10];
+    char s2[10];
+    char s3[10];
+    char s4[10];
+    char s5[10];
+    char s6[10];
+
+    sprintf(s1, "%d", pill3.hrs1);
+    sprintf(s2, "%d:", pill3.hrs2);
+    sprintf(s3, "%d", pill3.mins1);
+    sprintf(s4, "%d:", pill3.mins2);
+    sprintf(s5, "%d", pill3.secs1);
+    sprintf(s6, "%d", pill3.secs2);
+    strcat(s1, s2);
+    strcat(s1, s3);
+    strcat(s1, s4);
+    strcat(s1, s5);
+    strcat(s1, s6);
+    LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+
+    LCD_DrawString(20,190, WHITE, WHITE, "# - Enter New Pill Reminder", 16, 1);
+    //LCD_DrawString(20, 200, WHITE, WHITE, "Enter in format Hours + Minutes + Seconds", 16, 1);
+   // LCD_DrawString(20, 210, WHITE, WHITE, "With 0's as Necessary", 16, 1);
+    LCD_DrawString(50, 210, WHITE, WHITE, "i.e.; enter 5:30:00 ", 16, 1);
+    LCD_DrawString(100, 230, WHITE, WHITE, "as 053000", 16, 1);
+    LCD_DrawString(20, 250, WHITE, WHITE, "B - Stop Entering Digits", 16, 1);
+    LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+
+    char key_press;
+    do {
+        key_press = get_keypress();
+        int correctTime = 0;
+        if(key_press == '#') {
+            int newtime = get_time();
+            if(newtime <= 590)
+                newtime  /= 10;
+            county3 = newtime;
+            pill3timereset = 1;
+            userinputpill3 = 1;
+
+            pill3.hrs1 = newtime / 100000;
+            pill3.hrs2 = newtime / 10000 % 10;
+            pill3.mins1 = newtime / 1000 % 10;
+            pill3.mins2 = newtime / 100 % 10;
+            pill3.secs1 = newtime / 10 % 10;
+            pill3.secs2 = newtime / 1 % 10;
+            char* errorMsg = "";
+            if ((((pill3.mins1 * 10) + pill3.mins2) < 0) || (((pill3.mins1 * 10) + pill3.mins2) > 60))
+            {
+                strcat(errorMsg, "Invalid minutes ");
+            }
+            else if ((((pill3.secs1 * 10) + pill3.secs2) < 0) || (((pill3.secs1 * 10) + pill3.secs2) > 60))
+            {
+                strcat(errorMsg, "Invalid seconds");
+            }
+            else
+            {
+                correctTime = 1;
+            }
+            if (correctTime == 0)
+            {
+                pill3.hrs1 = 0;
+                pill3.hrs2 = 0;
+                pill3.mins1 = 0;
+                pill3.mins2 = 0;
+                pill3.secs1 = 0;
+                pill3.secs2 = 0;
+                LCD_Clear(BLACK);
+                LCD_DrawRectangle(10, 10, 260, 320, WHITE);
+                LCD_DrawString(20,200, WHITE, WHITE, errorMsg, 16, 1);
+                LCD_DrawString(20,250, WHITE, WHITE, "# - Try again", 16, 1);
+                LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+                key_press = get_keypress();
+                if(key_press == '#')
+                    add_edit_pill3();
+            }
+            else
+            {
+                char s1[10];
+                char s2[10];
+                char s3[10];
+                char s4[10];
+                char s5[10];
+                char s6[10];
+                sprintf(s1, "%d", pill3.hrs1);
+                sprintf(s2, "%d:", pill3.hrs2);
+                sprintf(s3, "%d", pill3.mins1);
+                sprintf(s4, "%d:", pill3.mins2);
+                sprintf(s5, "%d", pill3.secs1);
+                sprintf(s6, "%d", pill3.secs2);
+
+                strcat(s1, s2);
+                strcat(s1, s3);
+                strcat(s1, s4);
+                strcat(s1, s5);
+                strcat(s1, s6);
+                hr3 = pill3.hrs1*10 + pill3.hrs2;
+                min3 = pill3.mins1*10 + pill3.mins2;
+                sec3 = pill3.secs1*10 + pill3.secs2;
+                LCD_DrawFillRectangle(80, 100, 180, 120, BLACK);
+                LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+                key_press = get_keypress();
+            }
+            if(key_press == '*') {
+                pill_menu();
+            }
+            else if(key_press == '#') {
+                add_edit_pill3();
+            }
+        }
+        else if(key_press == '*') {
+            pill_menu();
+        }
+    } while (key_press != '*');
+
+}
+
+/*
+void add_edit_pill3() {
+    // shows a pills curr set time (00 00 00 if not added)
+    // A - next in time seq
+    // B - back in time seq
+    // * - back to pill_menu
+    LCD_Clear(BLACK);
+    screenType = 5;
+
+    char s1[10];
+    char s2[10];
+    char s3[10];
+    char s4[10];
+    char s5[10];
+    char s6[10];
+
+    sprintf(s1, "%d", pill3.hrs1);
+    sprintf(s2, "%d:", pill3.hrs2);
+    sprintf(s3, "%d", pill3.mins1);
+    sprintf(s4, "%d:", pill3.mins2);
+    sprintf(s5, "%d", pill3.secs1);
+    sprintf(s6, "%d", pill3.secs2);
+    strcat(s1, s2);
+    strcat(s1, s3);
+    strcat(s1, s4);
+    strcat(s1, s5);
+    strcat(s1, s6);
+    LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+
+    LCD_DrawString(20,190, WHITE, WHITE, "# - Enter New Pill Reminder", 16, 1);
+    //LCD_DrawString(20, 200, WHITE, WHITE, "Enter in format Hours + Minutes + Seconds", 16, 1);
+   // LCD_DrawString(20, 210, WHITE, WHITE, "With 0's as Necessary", 16, 1);
+    LCD_DrawString(50, 210, WHITE, WHITE, "i.e.; enter 5:30:00 ", 16, 1);
+    LCD_DrawString(100, 230, WHITE, WHITE, "as 053000", 16, 1);
+    LCD_DrawString(20, 250, WHITE, WHITE, "B - Stop Entering Digits", 16, 1);
+    LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+
+    char key_press;
+    do {
+        key_press = get_keypress();
+        int correctTime = 0;
+        if(key_press == '#') {
+            int newtime = get_time()/10;
+            county3 = newtime;
+            pill3timereset = 1;
+            userinputpill3 = 1;
+            pill3.hrs1 = newtime / 100000;
+            pill3.hrs2 = newtime / 10000 % 10;
+            pill3.mins1 = newtime / 1000 % 10;
+            pill3.mins2 = newtime / 100 % 10;
+            pill3.secs1 = newtime / 10 % 10;
+            pill3.secs2 = newtime / 1 % 10;
+            char* errorMsg = "";
+            if ((((pill3.mins1 * 10) + pill3.mins2) < 0) || (((pill3.mins1 * 10) + pill3.mins2) > 60))
+            {
+                strcat(errorMsg, "Invalid minutes ");
+            }
+            else if ((((pill3.secs1 * 10) + pill3.secs2) < 0) || (((pill3.secs1 * 10) + pill3.secs2) > 60))
+            {
+                strcat(errorMsg, "Invalid seconds");
+            }
+            if (correctTime == 0)
+            {
+                pill3.hrs1 = 0;
+                pill3.hrs2 = 0;
+                pill3.mins1 = 0;
+                pill3.mins2 = 0;
+                pill3.secs1 = 0;
+                pill3.secs2 = 0;
+                LCD_Clear(BLACK);
+                LCD_DrawRectangle(10, 10, 260, 320, WHITE);
+                LCD_DrawString(20,200, WHITE, WHITE, errorMsg, 16, 1);
+                LCD_DrawString(20,250, WHITE, WHITE, "# - Try again", 16, 1);
+                LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+                key_press = get_keypress();
+                if(key_press == '#')
+                    add_edit_pill3();
+            }
+            else
+            {
+                char s4[10];
+                char s5[10];
+                char s6[10];
+                sprintf(s1, "%d", pill3.hrs1);
+                sprintf(s2, "%d:", pill3.hrs2);
+                sprintf(s3, "%d", pill3.mins1);
+                sprintf(s4, "%d:", pill3.mins2);
+                sprintf(s5, "%d", pill3.secs1);
+                sprintf(s6, "%d", pill3.secs2);
+                strcat(s1, s2);
+                strcat(s1, s3);
+                strcat(s1, s4);
+                strcat(s1, s5);
+                strcat(s1, s6);
+                hr3 = pill3.hrs1*10 + pill3.hrs2;
+                min3 = pill3.mins1*10 + pill3.mins2;
+                sec3 = pill3.secs1*10 + pill3.secs2;
+                LCD_DrawFillRectangle(80, 100, 180, 120, BLACK);
+                LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+                key_press = get_keypress();
+            }
+            if(key_press == '*') {
+                pill_menu();
+            }
+        }
+        else if(key_press == '#') {
+            add_edit_pill3();
+        }
+    } while (key_press != '*');
+}*/
+
 
 // TODO: write function
 void set_time(void) {
@@ -1040,8 +1521,11 @@ void set_time(void) {
                 userinputclock = 1;
             }
             if(key_press == '*') {
-                pill_menu();
+                general_menu();
             }
+        }
+        else if(key_press == '*') {
+            general_menu();
         }
     } while (key_press != '*');
 }

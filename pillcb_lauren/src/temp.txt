@@ -1,0 +1,122 @@
+void add_edit_pill3() {
+    // shows a pills curr set time (00 00 00 if not added)
+    // A - next in time seq
+    // B - back in time seq
+    // * - back to pill_menu
+    LCD_Clear(BLACK);
+    screenType = 5;
+
+    char s1[10];
+    char s2[10];
+    char s3[10];
+    char s4[10];
+    char s5[10];
+    char s6[10];
+
+    sprintf(s1, "%d", pill3.hrs1);
+    sprintf(s2, "%d:", pill3.hrs2);
+    sprintf(s3, "%d", pill3.mins1);
+    sprintf(s4, "%d:", pill3.mins2);
+    sprintf(s5, "%d", pill3.secs1);
+    sprintf(s6, "%d", pill3.secs2);
+    strcat(s1, s2);
+    strcat(s1, s3);
+    strcat(s1, s4);
+    strcat(s1, s5);
+    strcat(s1, s6);
+    LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+
+    LCD_DrawString(20,190, WHITE, WHITE, "# - Enter New Pill Reminder", 16, 1);
+    //LCD_DrawString(20, 200, WHITE, WHITE, "Enter in format Hours + Minutes + Seconds", 16, 1);
+   // LCD_DrawString(20, 210, WHITE, WHITE, "With 0's as Necessary", 16, 1);
+    LCD_DrawString(50, 210, WHITE, WHITE, "i.e.; enter 5:30:00 ", 16, 1);
+    LCD_DrawString(100, 230, WHITE, WHITE, "as 053000", 16, 1);
+    LCD_DrawString(20, 250, WHITE, WHITE, "B - Stop Entering Digits", 16, 1);
+    LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+
+    char key_press;
+    do {
+        key_press = get_keypress();
+        int correctTime = 0;
+        if(key_press == '#') {
+            int newtime = get_time();
+            county3 = newtime;
+            pill3timereset = 1;
+            userinputpill3 = 1;
+
+            pill3.hrs1 = newtime / 100000;
+            pill3.hrs2 = newtime / 10000 % 10;
+            pill3.mins1 = newtime / 1000 % 10;
+            pill3.mins2 = newtime / 100 % 10;
+            pill3.secs1 = newtime / 10 % 10;
+            pill3.secs2 = newtime / 1 % 10;
+            char* errorMsg = "";
+            if ((((pill3.mins1 * 10) + pill3.mins2) < 0) || (((pill3.mins1 * 10) + pill3.mins2) > 60))
+            {
+                strcat(errorMsg, "Invalid minutes ");
+            }
+            else if ((((pill3.secs1 * 10) + pill3.secs2) < 0) || (((pill3.secs1 * 10) + pill3.secs2) > 60))
+            {
+                strcat(errorMsg, "Invalid seconds");
+            }
+            else
+            {
+                correctTime = 1;
+            }
+            if (correctTime == 0)
+            {
+                pill3.hrs1 = 0;
+                pill3.hrs2 = 0;
+                pill3.mins1 = 0;
+                pill3.mins2 = 0;
+                pill3.secs1 = 0;
+                pill3.secs2 = 0;
+                LCD_Clear(BLACK);
+                LCD_DrawRectangle(10, 10, 260, 320, WHITE);
+                LCD_DrawString(20,200, WHITE, WHITE, errorMsg, 16, 1);
+                LCD_DrawString(20,250, WHITE, WHITE, "# - Try again", 16, 1);
+                LCD_DrawString(20,280, WHITE, WHITE, "* - Back to Pill Menu", 16, 1);
+                key_press = get_keypress();
+                if(key_press == '#')
+                    add_edit_pill3();
+            }
+            else
+            {
+                char s1[10];
+                char s2[10];
+                char s3[10];
+                char s4[10];
+                char s5[10];
+                char s6[10];
+                sprintf(s1, "%d", pill3.hrs1);
+                sprintf(s2, "%d:", pill3.hrs2);
+                sprintf(s3, "%d", pill3.mins1);
+                sprintf(s4, "%d:", pill3.mins2);
+                sprintf(s5, "%d", pill3.secs1);
+                sprintf(s6, "%d", pill3.secs2);
+
+                strcat(s1, s2);
+                strcat(s1, s3);
+                strcat(s1, s4);
+                strcat(s1, s5);
+                strcat(s1, s6);
+                hr3 = pill3.hrs1*10 + pill3.hrs2;
+                min3 = pill3.mins1*10 + pill3.mins2;
+                sec3 = pill3.secs1*10 + pill3.secs2;
+                LCD_DrawFillRectangle(80, 100, 180, 120, BLACK);
+                LCD_DrawString(90,100, WHITE, WHITE, s1, 16, 1);
+                key_press = get_keypress();
+            }
+            if(key_press == '*') {
+                pill_menu();
+            }
+            else if(key_press == '#') {
+                add_edit_pill3();
+            }
+        }
+        else if(key_press == '*') {
+            pill_menu();
+        }
+    } while (key_press != '*');
+
+}

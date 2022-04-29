@@ -27,6 +27,14 @@ void update_history(int, int);
 char get_key_event(void);
 char get_keypress(void);
 const char keymap[] = "DCBA#9630852*741";
+extern int seconds;
+extern int sec1;
+extern int sec2;
+extern int sec3;
+volatile int pastTime = -1;
+volatile int pastTime1 = -1;
+volatile int pastTime2 = -1;
+volatile int pastTime3 = -1;
 
 void push_queue(int n) {
     queue[qin] = n;
@@ -59,11 +67,14 @@ char get_key_event(void) {
 
         int c = calc_clock(clockcounter);
         if (noprint == 0 && userinputclock == 1){
-            print_clock(c, 0);
+            if(pastTime != seconds) {
+                print_clock(c, 0);
+                pastTime = seconds;
+            }
             //nano_wait(1000000000);
 
         }
-        else {
+        else if(userinputclock == 0){
             if (screenType == 0)
                 write_to_display("Set ya clock!!", 70, 75);
         }

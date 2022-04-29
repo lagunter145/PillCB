@@ -281,7 +281,7 @@ int timer_pill1(int counter, int done){
         //counter = 0;
     }
     if (sec1 == -1){
-        min1++;
+        min1--;
         sec1 = 59;
     }
     if (min1 == -1){
@@ -377,7 +377,7 @@ int timer_pill2(int counter, int done){
         //counter = 0;
     }
     if (sec2 == -1){
-        min2++;
+        min2--;
         sec2 = 59;
     }
     if (min2 == -1){
@@ -480,7 +480,7 @@ int timer_pill3(int counter, int done){
              //counter = 0;
          }
          if (sec3 == -1){
-             min3++;
+             min3--;
              sec3 = 59;
          }
          if (min3 == -1){

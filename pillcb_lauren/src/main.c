@@ -1,14 +1,4 @@
 
-/**
-  ******************************************************************************
-  * @file    main.c
-  * @author  Ac6
-  * @version V1.0
-  * @date    01-December-2013
-  * @brief   Default main function.
-  ******************************************************************************
-*/
-
 #include "stm32f0xx.h"
 #include "lcd.h"
 #include "midiplay.h"
@@ -26,10 +16,12 @@ volatile int county3 = 555555;
 volatile int hr3 = 0;
 volatile int min3 = 0;
 volatile int sec3 = 0;
+volatile int turnoffsound = 0;
 //volatile int countNJ = 0;
 extern int countNJ;
 volatile int anime = 0;
 volatile int fastkeyhit = 0;
+volatile int clockcounter = 0;
 //extern short int wavetable[N];
 
 //MIDI STUFF
@@ -97,9 +89,10 @@ void init_tim6(void)
     TIM6->DIER |= 1<<0;
     TIM6->CR2 |= 0x20;
     TIM6->CR1 |= 1<<0;
+    NVIC_SetPriority(TIM6_DAC_IRQn, 0);
     NVIC->ISER[0] = 1<<17;
 }
-
+/*
 void stop_song(void){
     for (int i = 0; i < 15; i++){
         voice[i].in_use = 0;
@@ -113,7 +106,7 @@ void stop_song(void){
   //  TIM2->CR1 &= ~(TIM_CR1_CEN);
 
   //  DAC->CR &= ~DAC_CR_EN1;
-}
+}*/
 
 // Find the voice current playing a note, and turn it off.
 void note_off(int time, int chan, int key, int velo)
@@ -191,17 +184,32 @@ struct {
 
 int time = 0;
 int n = 0;
+
+//uint8_t notes[] = { 60,62,64,65,67,69,71,72,71,69,67,65,64,62,60,0 };
+//uint8_t num = sizeof notes / sizeof notes[0] - 1;
+
 void TIM2_IRQHandler(void)
 {
     // TODO: Remember to acknowledge the interrupt here!
     TIM2->SR &= ~(TIM_SR_UIF);
     midi_play();
+
+
 #if defined(RICK_DID_THIS)
-    note_on(0,0,70,128);
+    //note_on(0,0,70,128);
+
+
     TIM2->CR1 &= ~TIM_CR1_CEN;
     NVIC->ICER[0] = -1;
     NVIC->ISER[0] = 1<<TIM6_DAC_IRQn;
 #endif
+/*
+    // turn off previous note
+    note_off(0,0,notes[num],128);
+       // advance to next note
+   num = (num + 1) % (sizeof notes / sizeof notes[0]);
+       // turn on note
+   note_on(0,0,notes[num],128);*/
 }
 // Configure timer 2 so that it invokes the Update interrupt
 // every n microseconds.  To do so, set the prescaler to divide
@@ -216,11 +224,13 @@ void init_tim2(int n) {
     RCC->APB1ENR |= 1<<0;
     TIM2->PSC = 48 - 1;
     TIM2->ARR = n - 1;
-    TIM6->CR1 |= TIM_CR1_ARPE;
+    TIM2->DIER |= 1<<0;
+    TIM2->CR1 |= TIM_CR1_ARPE;
+    NVIC_SetPriority(TIM2_IRQn, 2);
     TIM2->DIER |= 1<<0;
     TIM2->CR1 |= 1<<0;
     NVIC->ISER[0] = 1<<15;
-    NVIC_SetPriority(TIM2_IRQn, 1);
+    //NVIC_SetPriority(TIM2_IRQn, 1);
   //  TIM2->CR1 |= (TIM_CR1_CEN);
 }
 //===========================================================================
@@ -240,7 +250,7 @@ void init_tim7() {
     TIM7->DIER |= TIM_DIER_UIE;
     NVIC->ISER[0] = 1<<TIM7_IRQn;
     TIM7->CR1 |= TIM_CR1_CEN;
-    NVIC_SetPriority(TIM7_IRQn, 2);
+    NVIC_SetPriority(TIM7_IRQn, 1);
 }
 
 void TIM7_IRQHandler()
@@ -325,7 +335,6 @@ void init_lcd_spi(void)
 void enable_keypadports(void) {
     // KEYPAD PORTS
     RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
-
     // port c output pins 7 -4
     // port c input pins 3 - 0
     GPIOC->MODER &= ~(0xffff);
@@ -389,7 +398,8 @@ void EXTI2_3_IRQHandler(void){
         GPIOC->ODR |= 0x0100;
     }
     counter++;
-    calc_clock(counter);
+    clockcounter++;
+    calc_clock(clockcounter);
     timer_pill1(counter, 0);
     timer_pill2(counter, 0);
     timer_pill3(counter, 0);
@@ -402,10 +412,13 @@ void EXTI2_3_IRQHandler(void){
         }
     }
     else {
-
         if(counter == 30) {
             counter = 0;
         }
+    }
+
+    if(clockcounter == 60) {
+        clockcounter = 0;
     }
 }
 
@@ -415,8 +428,20 @@ void EXTI2_3_IRQHandler(void){
 //extern int qout;
 //extern char queue[2];
 volatile int noprint = 0;
-extern int seconds;
+
+void reset_counter() {
+    counter = 0;
+}
+
 void home(int reset1, int reset2, int reset3) {
+    if(turnoffsound == 1) {
+        RCC->APB1ENR |= RCC_APB1ENR_DACEN;
+        DAC->CR &= ~DAC_CR_EN1;
+        RCC->APB1ENR |= 1<<0;
+        TIM2->CR1 &= ~TIM_CR1_CEN;
+        turnoffsound = 0;
+
+    }
     if(county1 != 0 && reset1 == 1) {
          hr1 = county1 / 10000;
          min1 = (county1 / 100) % 100;
@@ -470,6 +495,7 @@ void home(int reset1, int reset2, int reset3) {
 
 int main(void)
 {
+//#define RICK_DID_THIS_TOO
 #if defined(RICK_DID_THIS_TOO)
     init_dac();
     init_tim6();

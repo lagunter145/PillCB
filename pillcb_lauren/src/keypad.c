@@ -20,20 +20,14 @@ extern int userinputpill1;
 extern int userinputpill2;
 extern int userinputpill3;
 extern int alarmtimecounter = 0;
+extern int clockcounter;
 void push_queue(int);
 char pop_queue(void);
 void update_history(int, int);
 char get_key_event(void);
 char get_keypress(void);
 const char keymap[] = "DCBA#9630852*741";
-extern int seconds;
-extern int sec1;
-extern int sec2;
-extern int sec3;
-volatile int pastTime = -1;
-volatile int pastTime1 = -1;
-volatile int pastTime2 = -1;
-volatile int pastTime3 = -1;
+
 void push_queue(int n) {
     queue[qin] = n;
     qin ^= 1;
@@ -63,16 +57,13 @@ extern int noprint;
 char get_key_event(void) {
     for(;;) {
 
-        int c = calc_clock(counter);
+        int c = calc_clock(clockcounter);
         if (noprint == 0 && userinputclock == 1){
-            if(pastTime != seconds) {
-                print_clock(c, 0);
-                pastTime = seconds;
-            }
+            print_clock(c, 0);
             //nano_wait(1000000000);
 
         }
-        else if(userinputclock == 0){
+        else {
             if (screenType == 0)
                 write_to_display("Set ya clock!!", 70, 75);
         }
@@ -81,10 +72,7 @@ char get_key_event(void) {
               int c1 = timer_pill1(counter, 1);
 
               if (noprint == 0 && userinputpill1 == 1){
-                  //if(pastTime1 != sec1) {
                   print_clock(c1, 1);
-                  //pastTime1 = sec1;
-                  //}
                   //nano_wait(10000);
               }
               else if (noprint == 0 && (userinputclock == 1))
@@ -94,10 +82,7 @@ char get_key_event(void) {
               int c2 = timer_pill2(counter, 1);
 
               if (noprint == 0 && userinputpill2 == 1){
-                  //if(pastTime2 != sec2) {
                   print_clock(c2, 2);
-                  //pastTime2 = sec2;
-                                   // }
                   //nano_wait(10000);
               }
               else if (noprint == 0 && (userinputclock == 1))
@@ -107,10 +92,7 @@ char get_key_event(void) {
               int c3 = timer_pill3(counter, 1);
 
               if (noprint == 0 && userinputpill3 == 1){
-                  //if(pastTime3 != sec3) {
                   print_clock(c3, 3);
-                  //pastTime3 = sec3;
-                                   // }
                   //nano_wait(10000);
               }
               else if (noprint == 0 && (userinputclock == 1))
@@ -118,11 +100,11 @@ char get_key_event(void) {
           }
 
           if (anime == 1 && alarmtimecounter != 0) {
-              if(countNJ >= 0 && countNJ < 1)
+              if(countNJ == 0)
                   LCD_DrawPicture(40,40,&nj_la_small);
-              else if(countNJ >= 1 && countNJ < 2)
+              else if(countNJ == 1)
                   LCD_DrawPicture(40,40,&nj_lb_small);
-              else if(countNJ >= 2 && countNJ < 3)
+              else if(countNJ == 2)
                   LCD_DrawPicture(40,40,&nj_lc_small);
               else {
                   LCD_DrawPicture(40,40,&nj_lb_small);
@@ -167,5 +149,3 @@ char get_keypress() {
     }
     return event & 0x7f;
 }
-
-
